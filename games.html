@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Games</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+* {
+    box-sizing:border-box;
+}
+
+
+body {
+
+    margin:0;
+
+    color:white;
+
+    font-family:"Press Start 2P", monospace;
+
+
+    background-image:
+    linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.7)),
+    url("https://64.media.tumblr.com/ede01af5c7e26a87f3f82f5af325a803/0aac3abd211d85b8-37/s540x810/251f68e57d365c3a18dd89b94ca6c6a4df7fd527.gif");
+
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-attachment:fixed;
+
+}
+
+
+
+/* TOP BAR */
+
+
+.navbar {
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+
+    padding:18px 25px;
+
+
+    background:rgba(0,0,0,.75);
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+
+    z-index:5;
+
+}
+
+
+
+.logo {
+
+    color:#c084fc;
+
+    font-size:15px;
+
+}
+
+
+
+.nav-links {
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+
+
+.nav-links a {
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+}
+
+
+
+.nav-links a:hover {
+
+    color:#c084fc;
+
+}
+
+
+
+/* GAME AREA */
+
+
+.container {
+
+    width:80%;
+
+    height:75vh;
+
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+
+    transform:translate(-50%, -50%);
+
+
+    background:rgba(0,0,0,.55);
+
+
+    border-radius:35px;
+
+
+    backdrop-filter:blur(10px);
+
+
+    overflow-y:auto;
+
+
+    padding:35px;
+
+}
+
+
+/* GRID */
+
+
+.grid {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+
+    gap:30px;
+
+}
+
+
+
+/* GAME TILES */
+
+
+.game {
+
+    height:220px;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    position:relative;
+
+
+    cursor:pointer;
+
+
+    transform-style:preserve-3d;
+
+
+    transition:transform .15s ease, box-shadow .3s;
+
+
+    box-shadow:
+
+    0 0 20px rgba(0,0,0,.7);
+
+}
+
+
+
+.game img {
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+
+    transition:.35s;
+
+}
+
+
+
+/* HOVER DARK FADE */
+
+
+.overlay {
+
+    position:absolute;
+
+    inset:0;
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+
+    background:
+
+    linear-gradient(
+    transparent 20%,
+    rgba(0,0,0,.95)
+    );
+
+
+    opacity:0;
+
+    transition:.3s;
+
+}
+
+
+
+.game:hover .overlay {
+
+    opacity:1;
+
+}
+
+
+
+.game:hover img {
+
+    transform:scale(1.08);
+
+}
+
+
+
+.game:hover {
+
+    box-shadow:
+
+    0 0 25px #c084fc;
+
+}
+
+
+
+/* TEXT */
+
+
+.overlay h3 {
+
+    font-size:13px;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.play {
+
+
+    color:white;
+
+    background:none;
+
+
+    border:2px solid white;
+
+
+    padding:12px 25px;
+
+
+    border-radius:20px;
+
+
+    font-family:"Press Start 2P";
+
+
+    font-size:11px;
+
+
+    margin-bottom:25px;
+
+
+    transition:.2s;
+
+}
+
+
+
+.play:hover {
+
+    background:white;
+
+    color:black;
+
+}
+
+
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="navbar">
+
+
+<div class="logo">
+chopper👀👀👀
+</div>
+
+
+<div class="nav-links">
+
+<a href="index.html">
+HOME
+</a>
+
+
+<a href="games.html">
+GAMES
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="container">
+
+
+<div class="grid">
+
+
+
+<script>
+
+
+const games = [
+
+{
+name: "crazy cars",
+image: "https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=500,height=500,fit=cover,f=auto/2bc8004fcbb4387908a636e2a9d9ab4a/crazy-cars-logo.png",
+href: "crazycar.html"
+},
+
+{
+name: "Game 2",
+image: "https://placehold.co/500x500",
+href: "game2.html"
+},
+
+{
+name: "Game 3",
+image: "https://placehold.co/500x500",
+href: "game3.html"
+},
+
+
+
+{
+name: "Game 4",
+image: "https://placehold.co/500x500",
+link: "game4.html"
+}
+
+];
+
+
+
+games.forEach(game => {
+
+
+document.write(`
+
+
+<a href="${game.link}" style="text-decoration:none;color:white;">
+
+
+<div class="game">
+
+
+<img src="${game.image}">
+
+
+<div class="overlay">
+
+
+<h3>
+${game.name}
+</h3>
+
+
+<div class="play">
+PLAY
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</a>
+
+
+`);
+
+
+});
+
+
+</script>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const cards=document.querySelectorAll(".game");
+
+
+document.addEventListener("mousemove",(e)=>{
+
+
+cards.forEach(card=>{
+
+
+let rect=card.getBoundingClientRect();
+
+
+let x=e.clientX-rect.left;
+
+let y=e.clientY-rect.top;
+
+
+let rotateY=(x-rect.width/2)/80;
+
+let rotateX=-(y-rect.height/2)/80;
+
+
+
+card.style.transform =
+
+`perspective(800px)
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)`;
+
+
+});
+
+
+});
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
