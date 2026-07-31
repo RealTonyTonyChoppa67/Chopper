@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>chopper👀👀👀</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin:0;
+
+    color:white;
+
+    font-family:"Press Start 2P", monospace;
+
+
+    background-image:
+    linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.65)),
+    url("https://64.media.tumblr.com/ede01af5c7e26a87f3f82f5af325a803/0aac3abd211d85b8-37/s540x810/251f68e57d365c3a18dd89b94ca6c6a4df7fd527.gif");
+
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-attachment:fixed;
+
+}
+
+
+
+/* PASSWORD SCREEN */
+
+
+#lock {
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+
+
+#lock input {
+
+    margin-top:20px;
+
+    padding:15px;
+
+    font-family:"Press Start 2P";
+
+    width:300px;
+
+}
+
+
+
+#lock button {
+
+    margin-top:15px;
+
+    padding:15px 25px;
+
+    font-family:"Press Start 2P";
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+/* WEBSITE */
+
+
+#site {
+
+    display:none;
+
+}
+
+
+
+.navbar {
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+
+    padding:18px 25px;
+
+
+    background:rgba(0,0,0,.75);
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+
+}
+
+
+
+.logo {
+
+    font-size:15px;
+
+    color:#c084fc;
+
+}
+
+
+
+.nav-links {
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+
+
+.nav-links a {
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+}
+
+
+
+
+.hero {
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+
+
+h1 {
+
+    font-size:30px;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    border-right:5px solid white;
+
+    width:0;
+
+    animation:
+    typing 3s steps(35) forwards,
+    blink .7s infinite;
+
+    -webkit-text-stroke:2px black;
+
+    text-shadow:0 0 10px black;
+
+}
+
+
+@keyframes typing {
+
+from {
+
+width:0;
+
+}
+
+to {
+
+width:850px;
+
+}
+
+}
+
+
+
+@keyframes blink {
+
+50% {
+
+border-color:transparent;
+
+}
+
+}
+
+
+
+p {
+
+    font-size:13px;
+
+    text-shadow:0 0 10px black;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div id="lock">
+
+<h2>
+enter password
+</h2>
+
+
+<input id="password" type="password" placeholder="password">
+
+
+<button onclick="unlock()">
+enter
+</button>
+
+
+<p id="wrong"></p>
+
+
+</div>
+
+
+
+
+
+<div id="site">
+
+
+<div class="navbar">
+
+
+<div class="logo">
+chopper👀👀👀
+</div>
+
+
+<div class="nav-links">
+
+<a href="#">
+HOME
+</a>
+
+
+<a href="#">
+GAMES
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="hero">
+
+
+<h1>
+welcome to my website mamas
+</h1>
+
+
+<p>
+i hope u like my website i think
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+function unlock(){
+
+
+let pass = document.getElementById("password").value;
+
+
+if(pass === "doctorchopper67"){
+
+
+document.getElementById("lock").style.display="none";
+
+
+document.getElementById("site").style.display="block";
+
+
+}
+
+
+else {
+
+
+document.getElementById("wrong").innerHTML="wrong password 😭";
+
+
+}
+
+
+}
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
