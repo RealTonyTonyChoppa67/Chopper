@@ -1,1785 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SkibidiFlix</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Chopperflix</title>
 
 <style>
 
-/* =========================
-   VARIABLES
-========================= */
-
-:root{
-    --blue:#1E7BFF;
-    --blue2:#3B82F6;
-    --light:#60A5FA;
-
-    --bg:#050914;
-    --dark:#0F172A;
-    --card:#111827;
-    --soft:#1E293B;
-
-    --white:#F8FAFC;
-}
-
-
-/* =========================
-   RESET
-========================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
 
 *{
-    margin:0;
-    padding:0;
     box-sizing:border-box;
-    scroll-behavior:smooth;
 }
 
 body{
-
-    background:
-    radial-gradient(
-        circle at top,
-        rgba(30,123,255,.25),
-        transparent 35%
-    ),
-    linear-gradient(
-        180deg,
-        #020617,
-        #050914
-    );
-
+    margin:0;
+    padding-top:120px;
+    background:#080808;
     color:white;
-    font-family:"Inter",sans-serif;
-    overflow-x:hidden;
-
+    font-family:Arial,sans-serif;
 }
 
 
-button{
-    font-family:inherit;
-    cursor:pointer;
-}
+/* TOP BAR */
 
+.topbar{
 
-img{
-    display:block;
-}
-
-
-::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-}
-
-
-::-webkit-scrollbar-track{
-    background:#020617;
-}
-
-
-::-webkit-scrollbar-thumb{
-    background:#1E7BFF;
-    border-radius:20px;
-}
-
-
-
-/* =========================
-   LOADING SCREEN
-========================= */
-
-#loader{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#020617;
-
-    z-index:99999;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    flex-direction:column;
-
-}
-
-
-.loader-logo{
-
-    font-size:60px;
-
-    font-weight:900;
-
-    color:white;
-
-    text-shadow:
-    0 0 20px var(--blue),
-    0 0 50px var(--blue);
-
-    animation:pulse 1.5s infinite;
-
-}
-
-
-.spinner{
-
-    width:55px;
-
-    height:55px;
-
-    margin-top:25px;
-
-    border-radius:50%;
-
-    border:5px solid #1e293b;
-
-    border-top-color:var(--blue);
-
-    animation:spin 1s linear infinite;
-
-}
-
-
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-
-@keyframes pulse{
-
-    50%{
-        opacity:.4;
-    }
-
-}
-
-
-.fade-loader{
-
-    animation:
-    loaderFade 1s forwards;
-
-}
-
-
-@keyframes loaderFade{
-
-    to{
-        opacity:0;
-        visibility:hidden;
-    }
-
-}
-
-
-
-/* =========================
-   NAVBAR
-========================= */
-
-
-.navbar{
-
-    position:fixed;
-
-    top:0;
-
-    left:0;
-
+    height:90px;
     width:100%;
 
-    height:80px;
-
-    padding:0 50px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    z-index:5000;
-
-    transition:.4s;
-
-}
-
-
-
-.navbar.active{
-
-    background:
-    rgba(15,23,42,.85);
-
-    backdrop-filter:blur(20px);
-
-    box-shadow:
-    0 10px 40px rgba(0,0,0,.5);
-
-}
-
-
-
-
-.nav-left,
-.nav-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:25px;
-
-}
-
-
-
-.logo{
-
-    font-size:32px;
-
-    font-weight:900;
-
-    letter-spacing:-1px;
-
-    text-shadow:
-    0 0 20px var(--blue);
-
-}
-
-
-.logo span{
-
-    color:var(--blue);
-
-}
-
-
-
-.nav-link{
-
-    color:#dbeafe;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-
-
-.nav-link:hover{
-
-    color:white;
-
-    text-shadow:
-    0 0 15px var(--blue);
-
-}
-
-
-
-.dropdown{
-
-    position:relative;
-
-}
-
-
-.dropdown-menu{
-
-    position:absolute;
-
-    top:40px;
-
+    position:fixed;
+    top:0;
     left:0;
 
-    width:200px;
+    z-index:1000;
 
-    padding:15px;
+    background:rgba(5,5,15,.75);
 
-    border-radius:18px;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
-    background:
-    rgba(15,23,42,.95);
+    border-bottom:1px solid rgba(255,255,255,.15);
 
-    backdrop-filter:blur(20px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    opacity:0;
-
-    transform:translateY(-15px);
-
-    pointer-events:none;
-
-    transition:.3s;
+    box-shadow:0 8px 35px rgba(0,0,0,.7);
 
 }
 
 
+.topbar h1{
 
-.dropdown:hover .dropdown-menu{
+    margin:0;
 
-    opacity:1;
+    font-family:"Montserrat";
+    font-size:52px;
 
-    transform:translateY(0);
+    letter-spacing:-2px;
 
-    pointer-events:auto;
+    background:linear-gradient(
+        90deg,
+        #a855f7,
+        #2563eb
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 
 }
 
 
+/* SEARCH */
 
-.dropdown-menu a{
+.search{
 
-    display:block;
+    position:absolute;
+    right:25px;
 
-    color:white;
+}
 
-    text-decoration:none;
+
+.search input{
+
+    width:220px;
 
     padding:12px;
 
-    border-radius:10px;
-
-}
-
-
-
-.dropdown-menu a:hover{
-
-    background:#1e293b;
-
-}
-
-
-
-
-.icon-btn{
-
-    width:42px;
-
-    height:42px;
+    border-radius:20px;
 
     border:none;
 
-    border-radius:50%;
-
-    background:#1e293b;
+    background:#222;
 
     color:white;
 
-    transition:.3s;
+}
+
+
+.search button{
+
+    margin-left:8px;
+
+    padding:12px 15px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#7c3aed;
+
+    color:white;
+
+    cursor:pointer;
 
 }
 
 
+.suggestions{
 
-.icon-btn:hover{
+    position:absolute;
 
-    background:var(--blue);
+    top:45px;
 
-    box-shadow:
-    0 0 25px var(--blue);
+    width:220px;
 
-}
+    background:#181818;
 
-
-
-.avatar{
-
-    width:44px;
-
-    height:44px;
-
-    border-radius:50%;
-
-    background:
-    url("https://picsum.photos/200?random=99")
-    center/cover;
-
-}
-
-
-
-/* =========================
-   HERO
-========================= */
-
-
-.hero{
-
-    height:80vh;
-
-    min-height:650px;
-
-    position:relative;
-
-    display:flex;
-
-    align-items:center;
-
-    padding:0 70px;
+    border-radius:10px;
 
     overflow:hidden;
 
 }
 
 
+.suggestion{
 
-.hero-background{
+    padding:10px;
 
-    position:absolute;
+    cursor:pointer;
 
-    inset:0;
+}
 
-    background:
-    url("https://picsum.photos/1920/900?random=600")
-    center/cover;
 
-    animation:heroZoom 15s infinite alternate;
+.suggestion:hover{
+
+    background:#333;
 
 }
 
 
 
-@keyframes heroZoom{
+/* CONTENT */
 
-    from{
-        transform:scale(1);
-    }
+.section{
 
-    to{
-        transform:scale(1.1);
-    }
+    padding:25px;
 
 }
 
 
+.section h2{
 
-
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-    linear-gradient(
-    90deg,
-    #020617 0%,
-    rgba(2,6,23,.85) 35%,
-    transparent 80%
-    ),
-
-    linear-gradient(
-    0deg,
-    #050914,
-    transparent
-    );
+    font-size:32px;
 
 }
 
 
+/* SCROLL ROW */
 
-.hero-content{
-
-    position:relative;
-
-    z-index:2;
-
-    max-width:700px;
-
-    animation:
-    fadeSlide 1s ease;
-
-}
-
-
-
-@keyframes fadeSlide{
-
-    from{
-
-        opacity:0;
-
-        transform:translateX(-50px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
-
-}
-
-
-
-.hero h1{
-
-    font-size:85px;
-
-    font-weight:900;
-
-    letter-spacing:-4px;
-
-}
-
-
-
-.hero p{
-
-    margin-top:20px;
-
-    font-size:18px;
-
-    line-height:1.7;
-
-    color:#dbeafe;
-
-}
-
-
-
-.meta{
-
-    display:flex;
-
-    gap:12px;
-
-    flex-wrap:wrap;
-
-    margin:25px 0;
-
-}
-
-
-
-.meta span{
-
-    padding:8px 16px;
-
-    border-radius:30px;
-
-    background:
-    rgba(255,255,255,.1);
-
-    backdrop-filter:blur(10px);
-
-}
-
-
-
-.hero-buttons{
+.row{
 
     display:flex;
 
     gap:20px;
 
-}
+    overflow-x:auto;
 
-
-
-.btn{
-
-    padding:15px 35px;
-
-    border-radius:12px;
-
-    border:none;
-
-    font-weight:800;
-
-    transition:.3s;
+    padding-bottom:15px;
 
 }
 
 
 
-.btn:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:
-    0 0 30px var(--blue);
-
-}
-
-
-
-.play{
-
-    background:white;
-
-    color:#020617;
-
-}
-
-
-
-.info{
-
-    background:var(--blue);
-
-    color:white;
-
-}
-
-
-/* PART 2 CONTINUES */
-
-</style>
-</head>
-
-<body>
-
-<div id="loader">
-
-<div class="loader-logo">
-SkibidiFlix
-</div>
-
-<div class="spinner"></div>
-
-</div>
-
-
-<nav class="navbar">
-
-<div class="nav-left">
-
-<div class="logo">
-Skibidi<span>Flix</span>
-</div>
-
-<a class="nav-link">Home</a>
-<a class="nav-link">TV Shows</a>
-<a class="nav-link">Movies</a>
-<a class="nav-link">New & Popular</a>
-<a class="nav-link">My List</a>
-
-
-<div class="dropdown">
-
-<a class="nav-link">
-Browse ▾
-</a>
-
-<div class="dropdown-menu">
-
-<a>Action</a>
-<a>Comedy</a>
-<a>Sci-Fi</a>
-<a>Fantasy</a>
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="nav-right">
-
-<button class="icon-btn">
-🔍
-</button>
-
-<button class="icon-btn">
-🔔
-</button>
-
-<span class="nav-link">
-Kids
-</span>
-
-<div class="avatar"></div>
-
-</div>
-
-
-</nav>
-
-
-
-<section class="hero">
-
-<div class="hero-background"></div>
-
-
-<div class="hero-content">
-
-<h1>
-SKIBIDI WARS
-</h1>
-
-
-<p>
-A futuristic adventure filled with strange battles,
-unexpected heroes, and chaotic worlds colliding in a
-cinematic journey.
-</p>
-
-
-<div class="meta">
-
-<span>PG-13</span>
-<span>2h 14m</span>
-<span>Action</span>
-<span>Comedy</span>
-<span>🔥 Trending #1</span>
-
-</div>
-
-
-<div class="hero-buttons">
-
-<button class="btn play">
-▶ Play
-</button>
-
-
-<button class="btn info">
-ℹ More Info
-</button>
-
-
-</div>
-
-
-</div>
-
-
-</section>
-<!-- =========================
- MAIN CONTENT
-========================= -->
-
-<main>
-
-
-<!-- CONTINUE WATCHING -->
-
-<section class="section">
-
-<h2 class="section-title">
-Continue Watching
-</h2>
-
-
-<div class="row" id="continueRow">
-
-
-</div>
-
-
-</section>
-
-
-
-<!-- TRENDING NOW -->
-
-
-<section class="section">
-
-<h2 class="section-title">
-Trending Now
-</h2>
-
-
-<div class="row" id="trendingRow">
-
-</div>
-
-
-</section>
-
-
-
-<!-- POPULAR MOVIES -->
-
-
-<section class="section">
-
-<h2 class="section-title">
-Popular Movies
-</h2>
-
-
-<div class="movie-grid" id="movieGrid">
-
-</div>
-
-
-</section>
-
-
-
-
-<!-- POPULAR SERIES -->
-
-
-<section class="section">
-
-<h2 class="section-title">
-Popular Series
-</h2>
-
-
-<div class="movie-grid" id="seriesGrid">
-
-</div>
-
-
-</section>
-
-
-
-<!-- NEW RELEASES -->
-
-
-<section class="section">
-
-<h2 class="section-title">
-New Releases
-</h2>
-
-
-<div class="row" id="newRow">
-
-</div>
-
-
-</section>
-
-
-
-
-<!-- TOP PICKS -->
-
-
-<section class="section">
-
-<h2 class="section-title">
-Top Picks For You
-</h2>
-
-
-<div class="row" id="picksRow">
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- GENRES -->
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-Genres
-</h2>
-
-
-
-<div id="genres">
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-<!-- COMING SOON -->
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-Coming Soon
-</h2>
-
-
-<div class="movie-grid" id="comingGrid">
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-<!-- COLLECTIONS -->
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-Featured Collections
-</h2>
-
-
-<div class="collection-grid">
-
-
-<div class="collection-card">
-
-<img src="https://picsum.photos/600/300?random=800">
-
-<div>
-Weekend Binge
-</div>
-
-</div>
-
-
-<div class="collection-card">
-
-<img src="https://picsum.photos/600/300?random=801">
-
-<div>
-Award Winners
-</div>
-
-</div>
-
-
-
-<div class="collection-card">
-
-<img src="https://picsum.photos/600/300?random=802">
-
-<div>
-Family Night
-</div>
-
-</div>
-
-
-
-<div class="collection-card">
-
-<img src="https://picsum.photos/600/300?random=803">
-
-<div>
-Trending Worldwide
-</div>
-
-</div>
-
-
-
-<div class="collection-card">
-
-<img src="https://picsum.photos/600/300?random=804">
-
-<div>
-Hidden Gems
-</div>
-
-</div>
-
-
-<div class="collection-card">
-
-<img src="https://picsum.photos/600/300?random=805">
-
-<div>
-Late Night Picks
-</div>
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- MY LIST -->
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-My List
-</h2>
-
-
-<div class="row" id="myList">
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- RECENTLY ADDED -->
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-Recently Added
-</h2>
-
-
-<div class="movie-grid" id="recentGrid">
-
-
-</div>
-
-
-</section>
-
-
-
-</main>
-
-
-
-
-
-
-<!-- FOOTER -->
-
-
-<footer>
-
-
-<div class="footer-grid">
-
-
-<div>
-
-<h3>
-Company
-</h3>
-
-<a>
-About
-</a>
-
-<a>
-Careers
-</a>
-
-<a>
-Press
-</a>
-
-<a>
-Investor Relations
-</a>
-
-
-</div>
-
-
-
-
-<div>
-
-<h3>
-Support
-</h3>
-
-
-<a>
-FAQ
-</a>
-
-<a>
-Contact
-</a>
-
-<a>
-Help Center
-</a>
-
-
-</div>
-
-
-
-
-<div>
-
-<h3>
-Legal
-</h3>
-
-
-<a>
-Privacy
-</a>
-
-<a>
-Terms
-</a>
-
-<a>
-Cookie Preferences
-</a>
-
-
-</div>
-
-
-
-
-<div>
-
-<h3>
-Social
-</h3>
-
-
-<div class="socials">
-
-<button>
-◉
-</button>
-
-<button>
-◉
-</button>
-
-<button>
-◉
-</button>
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-
-<p class="copyright">
-
-© 2026 SkibidiFlix. All placeholder content.
-
-</p>
-
-
-
-</footer>
-
-
-
-
-
-
-<!-- BACK TO TOP -->
-
-
-<button id="topBtn">
-
-↑
-
-</button>
-
-
-
-
-
-<!-- TOAST -->
-
-
-<div id="toast">
-
-</div>
-
-
-
-
-
-<!-- SEARCH MODAL -->
-
-
-<div id="searchModal">
-
-
-<div class="search-box">
-
-
-<button id="closeSearch">
-✕
-</button>
-
-
-<h2>
-Search SkibidiFlix
-</h2>
-
-
-<input 
-id="searchInput"
-placeholder="Search movies, shows..."
->
-
-
-<div id="searchResults">
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<style>
-
-
-/* =========================
- CONTENT STYLING
-========================= */
-
-
-.section{
-
-padding:50px;
-
-}
-
-
-.section-title{
-
-font-size:32px;
-
-font-weight:900;
-
-margin-bottom:25px;
-
-}
-
-
-
-.row{
-
-display:flex;
-
-gap:20px;
-
-overflow-x:auto;
-
-scroll-behavior:smooth;
-
-}
-
-
+/* CARD */
 
 .card{
 
-min-width:220px;
+    flex:0 0 220px;
 
-height:330px;
+    height:330px;
 
-}
+    background:#181818;
 
+    border-radius:15px;
 
+    overflow:hidden;
 
-.movie-grid{
+    cursor:pointer;
 
-display:grid;
-
-grid-template-columns:
-repeat(auto-fill,minmax(220px,1fr));
-
-gap:25px;
+    transition:.2s;
 
 }
 
 
+.card:hover{
 
-.movie-card{
-
-background:#111827;
-
-border-radius:18px;
-
-overflow:hidden;
-
-transition:.4s;
-
-position:relative;
+    transform:scale(1.05);
 
 }
 
 
+.card img{
 
-.movie-card img{
+    width:100%;
 
-width:100%;
+    height:260px;
 
-height:330px;
-
-object-fit:cover;
-
-}
-
-
-
-.movie-card:hover{
-
-transform:translateY(-10px);
-
-box-shadow:
-0 0 35px rgba(30,123,255,.5);
+    object-fit:cover;
 
 }
 
 
+.card p{
 
-.movie-info{
+    padding:10px;
 
-padding:15px;
+    margin:0;
 
-}
-
-
-
-.movie-info h3{
-
-font-size:18px;
+    font-weight:bold;
 
 }
 
 
+/* SEARCH PAGE */
 
-.rating{
+#searchPage{
 
-color:#60a5fa;
-
-margin-top:8px;
-
-}
-
-
-
-
-.badge{
-
-position:absolute;
-
-top:15px;
-
-left:15px;
-
-background:#1E7BFF;
-
-padding:7px 12px;
-
-border-radius:20px;
-
-font-weight:700;
+    display:none;
 
 }
 
 
+.back{
 
+    background:#7c3aed;
 
+    color:white;
 
-.collection-grid{
+    border:none;
 
-display:grid;
+    padding:12px 20px;
 
-grid-template-columns:
-repeat(auto-fit,minmax(300px,1fr));
+    border-radius:20px;
 
-gap:25px;
-
-}
-
-
-
-.collection-card{
-
-height:180px;
-
-border-radius:20px;
-
-overflow:hidden;
-
-position:relative;
+    cursor:pointer;
 
 }
-
-
-
-.collection-card img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-
-
-.collection-card div{
-
-position:absolute;
-
-bottom:0;
-
-width:100%;
-
-padding:25px;
-
-font-size:22px;
-
-font-weight:900;
-
-background:
-linear-gradient(transparent,#020617);
-
-}
-
-
-
-
-
-footer{
-
-padding:60px;
-
-background:#020617;
-
-}
-
-
-
-.footer-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-
-gap:40px;
-
-}
-
-
-
-footer h3{
-
-margin-bottom:20px;
-
-}
-
-
-
-footer a{
-
-display:block;
-
-color:#94a3b8;
-
-margin:12px 0;
-
-}
-
-
-
-.socials button{
-
-width:40px;
-
-height:40px;
-
-border-radius:50%;
-
-border:none;
-
-background:#1e293b;
-
-color:white;
-
-}
-
-
-
-.copyright{
-
-margin-top:40px;
-
-color:#64748b;
-
-}
-
-
-
-
-#topBtn{
-
-position:fixed;
-
-right:30px;
-
-bottom:30px;
-
-width:50px;
-
-height:50px;
-
-border-radius:50%;
-
-border:none;
-
-background:var(--blue);
-
-color:white;
-
-font-size:25px;
-
-display:none;
-
-box-shadow:
-0 0 25px var(--blue);
-
-}
-
-
-
-
-#toast{
-
-position:fixed;
-
-bottom:30px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-background:#1e293b;
-
-padding:15px 25px;
-
-border-radius:30px;
-
-opacity:0;
-
-transition:.4s;
-
-z-index:9999;
-
-}
-
-
-
-
-
-#searchModal{
-
-position:fixed;
-
-inset:0;
-
-background:
-rgba(0,0,0,.7);
-
-backdrop-filter:blur(10px);
-
-display:none;
-
-align-items:center;
-
-justify-content:center;
-
-z-index:9000;
-
-}
-
-
-
-.search-box{
-
-background:#0f172a;
-
-padding:40px;
-
-border-radius:25px;
-
-width:90%;
-
-max-width:600px;
-
-}
-
-
-
-.search-box input{
-
-width:100%;
-
-padding:15px;
-
-margin-top:20px;
-
-border-radius:15px;
-
-border:none;
-
-background:#1e293b;
-
-color:white;
-
-font-size:18px;
-
-}
-
-
-
-#closeSearch{
-
-float:right;
-
-background:none;
-
-border:none;
-
-color:white;
-
-font-size:22px;
-
-}
-
 
 
 </style>
+
+</head>
+
+
+<body>
+
+
+<div class="topbar">
+
+<h1>CHOPPERFLIX</h1>
+
+
+<div class="search">
+
+<input 
+id="searchBox"
+placeholder="Search..."
+oninput="suggest()">
+
+
+<button onclick="openSearch()">
+🔎
+</button>
+
+
+<div class="suggestions" id="suggestions"></div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div id="home">
+
+
+<div class="section">
+
+<h2>MOVIES</h2>
+
+<div class="row" id="movies"></div>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>SHOWS</h2>
+
+<div class="row" id="shows"></div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="searchPage">
+
+<div class="section">
+
+<button class="back" onclick="goBack()">
+← Back
+</button>
+
+
+<h2>Search Results</h2>
+
+
+<div class="row" id="results"></div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
 <script>
 
-/* =========================
-   DATA GENERATION
-========================= */
+
+const movies=[
+
+{
+title:"obssesion",
+image:"https://via.placeholder.com/220x330",
+banner:"banner1.png",
+description:"Good movie description",
+content:"https://www.vidking.net/embed/movie/1339713",
+type:"movie"
+},
 
 
-const placeholder = (id,w=500,h=750)=> 
-`https://picsum.photos/${w}/${h}?random=${id}`;
+{
+title:"Placeholder Movie 2",
+image:"https://via.placeholder.com/220x330",
+banner:"banner2.png",
+description:"Action adventure movie",
+content:"https://example.com/movie2",
+type:"movie"
+},
 
 
+{
+title:"Placeholder Movie 3",
+image:"https://via.placeholder.com/220x330",
+banner:"banner3.png",
+description:"Mystery movie",
+content:"https://example.com/movie3",
+type:"movie"
+},
 
-const titles = [
-"Neon Horizon",
-"Cyber Galaxy",
-"Shadow Protocol",
-"Last Dimension",
-"Ocean Beyond",
-"Quantum Runner",
-"Midnight Signal",
-"Lost Planet",
-"Future Legends",
-"Crystal Storm",
-"Silent Echo",
-"Velocity",
-"Star Frontier",
-"Dark Reality",
-"Final Orbit",
-"Parallel World",
-"Infinite Code",
-"Frozen Realm",
-"Golden Hour",
-"Hidden Valley"
+
+{
+title:"Placeholder Movie 4",
+image:"https://via.placeholder.com/220x330",
+banner:"banner4.png",
+description:"Epic movie",
+content:"https://example.com/movie4",
+type:"movie"
+}
+
 ];
 
 
 
-function createCard(title,index){
+
+
+const shows=[
+
+{
+title:"Placeholder Show 1",
+image:"https://via.placeholder.com/220x330",
+banner:"showbanner.png",
+description:"Funny series",
+content:"https://example.com/show1",
+type:"show",
+seasons:2,
+episodes:20
+},
+
+
+{
+title:"Placeholder Show 2",
+image:"https://via.placeholder.com/220x330",
+banner:"showbanner2.png",
+description:"Adventure series",
+content:"https://example.com/show2",
+type:"show",
+seasons:3,
+episodes:30
+}
+
+];
+
+
+
+
+
+const database=[...movies,...shows];
+
+
+
+
+
+function card(item){
 
 return `
 
-<div class="movie-card">
+<div class="card" onclick="openContent('${item.content}')">
 
-<img 
-loading="lazy"
-src="${placeholder(index+100)}"
-alt="${title}"
->
+<img src="${item.image}">
 
-
-<div class="movie-info">
-
-<h3>${title}</h3>
-
-<p>
-Action • Adventure
-</p>
-
-<div class="rating">
-★ ${(7 + Math.random()*3).toFixed(1)}
-</div>
-
-
-</div>
-
+<p>${item.title}</p>
 
 </div>
 
@@ -1790,50 +458,9 @@ Action • Adventure
 
 
 
+function openContent(link){
 
-/* =========================
- CONTINUE WATCHING
-========================= */
-
-
-const continueRow =
-document.getElementById("continueRow");
-
-
-for(let i=0;i<12;i++){
-
-continueRow.innerHTML += `
-
-<div class="movie-card">
-
-<img 
-loading="lazy"
-src="${placeholder(i+10)}"
->
-
-
-<div class="movie-info">
-
-<h3>
-Episode ${i+1}
-</h3>
-
-
-<p>
-${40+i} min remaining
-</p>
-
-
-<div class="progress">
-<div style="width:${20+i*6}%"></div>
-</div>
-
-
-</div>
-
-</div>
-
-`;
+window.location.href=link;
 
 }
 
@@ -1841,283 +468,16 @@ ${40+i} min remaining
 
 
 
-/* =========================
- TRENDING
-========================= */
+movies.forEach(item=>{
 
-
-const trending =
-document.getElementById("trendingRow");
-
-
-titles.forEach((t,i)=>{
-
-trending.innerHTML += `
-
-<div class="movie-card">
-
-<div class="badge">
-#${i+1}
-</div>
-
-<img 
-loading="lazy"
-src="${placeholder(i+50)}"
->
-
-
-<div class="movie-info">
-
-<h3>${t}</h3>
-
-<button class="btn info"
-onclick="toast('Playing ${t}')">
-Play
-</button>
-
-
-</div>
-
-</div>
-
-`;
+document.getElementById("movies").innerHTML += card(item);
 
 });
 
 
+shows.forEach(item=>{
 
-
-
-/* =========================
- GRID CREATION
-========================= */
-
-
-const movieGrid =
-document.getElementById("movieGrid");
-
-
-const seriesGrid =
-document.getElementById("seriesGrid");
-
-
-const recentGrid =
-document.getElementById("recentGrid");
-
-
-const comingGrid =
-document.getElementById("comingGrid");
-
-
-
-
-for(let i=0;i<30;i++){
-
-movieGrid.innerHTML += createCard(
-titles[i%titles.length],
-i+200
-);
-
-
-seriesGrid.innerHTML += `
-
-<div class="movie-card">
-
-<div class="badge">
-NEW
-</div>
-
-<img loading="lazy"
-src="${placeholder(i+300)}">
-
-
-<div class="movie-info">
-
-<h3>
-Series ${i+1}
-</h3>
-
-<p>
-${2+i%5} Seasons
-</p>
-
-</div>
-
-</div>
-
-`;
-
-
-
-recentGrid.innerHTML += createCard(
-"Recently Added "+(i+1),
-i+400
-);
-
-
-
-comingGrid.innerHTML += `
-
-<div class="movie-card">
-
-<img loading="lazy"
-src="${placeholder(i+500)}">
-
-
-<div class="movie-info">
-
-<h3>
-Upcoming Adventure ${i+1}
-</h3>
-
-<p>
-Release: Aug ${i+1}, 2026
-</p>
-
-
-<button class="btn info"
-onclick="toast('Reminder added')">
-
-Notify Me
-
-</button>
-
-
-</div>
-
-</div>
-
-`;
-
-
-}
-
-
-
-
-
-
-/* =========================
- TOP PICKS
-========================= */
-
-
-const picks =
-document.getElementById("picksRow");
-
-
-for(let i=0;i<15;i++){
-
-
-picks.innerHTML += `
-
-
-<div class="movie-card">
-
-<img loading="lazy"
-src="${placeholder(i+600)}">
-
-
-<div class="movie-info">
-
-<h3>
-Recommended ${i+1}
-</h3>
-
-
-<p>
-${90-i}% Match
-</p>
-
-
-</div>
-
-
-</div>
-
-
-`;
-
-}
-
-
-
-
-
-
-
-/* =========================
- GENRES
-========================= */
-
-
-const genres=[
-"Action",
-"Comedy",
-"Drama",
-"Sci-Fi",
-"Fantasy",
-"Animation",
-"Horror",
-"Thriller",
-"Adventure",
-"Crime",
-"Documentary",
-"Kids",
-"Romance"
-];
-
-
-
-const genreContainer =
-document.getElementById("genres");
-
-
-
-genres.forEach((genre,g)=>{
-
-
-genreContainer.innerHTML += `
-
-
-<h3 style="
-margin:35px 0 20px;
-font-size:26px;
-">
-
-${genre}
-
-</h3>
-
-
-<div class="row">
-
-
-${Array.from(
-{length:15},
-(_,i)=>`
-
-<div class="movie-card">
-
-<img loading="lazy"
-src="${placeholder(
-g*100+i+700
-)}">
-
-
-</div>
-
-`
-).join("")}
-
-
-</div>
-
-
-
-`;
-
-
+document.getElementById("shows").innerHTML += card(item);
 
 });
 
@@ -2126,843 +486,118 @@ g*100+i+700
 
 
 
+function suggest(){
 
+let value=document
+.getElementById("searchBox")
+.value
+.toLowerCase();
 
-/* =========================
- NAVBAR EFFECT
-========================= */
 
+let box=document.getElementById("suggestions");
 
-const nav =
-document.querySelector(".navbar");
 
+box.innerHTML="";
 
-window.addEventListener(
-"scroll",
-()=>{
 
-if(window.scrollY>50)
-nav.classList.add("active");
+if(value==="") return;
 
-else
-nav.classList.remove("active");
 
 
-}
-);
+database
+.filter(item=>
 
-
-
-
-
-
-
-/* =========================
- LOADER
-========================= */
-
-
-window.addEventListener(
-"load",
-()=>{
-
-setTimeout(()=>{
-
-document
-.getElementById("loader")
-.classList.add("fade-loader");
-
-
-},1500);
-
-
-});
-
-
-
-
-
-
-/* =========================
- TOAST
-========================= */
-
-
-function toast(message){
-
-const box=
-document.getElementById("toast");
-
-
-box.innerText=message;
-
-box.style.opacity="1";
-
-
-setTimeout(()=>{
-
-box.style.opacity="0";
-
-
-},2500);
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================
- SEARCH
-========================= */
-
-
-const searchBtn =
-document.querySelector(
-".icon-btn"
-);
-
-
-const modal =
-document.getElementById(
-"searchModal"
-);
-
-
-
-const closeSearch =
-document.getElementById(
-"closeSearch"
-);
-
-
-
-searchBtn.onclick=()=>{
-
-modal.style.display="flex";
-
-};
-
-
-
-closeSearch.onclick=()=>{
-
-modal.style.display="none";
-
-};
-
-
-
-
-
-document
-.getElementById("searchInput")
-.addEventListener(
-"input",
-e=>{
-
-
-const value=
-e.target.value.toLowerCase();
-
-
-const results =
-titles.filter(
-x=>x.toLowerCase()
+item.title
+.toLowerCase()
 .includes(value)
-);
+
+)
+.slice(0,5)
+.forEach(item=>{
 
 
+box.innerHTML += `
 
-document
-.getElementById("searchResults")
-.innerHTML =
-results.map(x=>`
+<div class="suggestion"
+onclick="choose('${item.title}')">
 
-<p style="
-padding:10px;
-color:white;
-">
+${item.title}
 
-${x}
+</div>
 
-</p>
-
-`).join("");
-
-
+`;
 
 });
 
 
-
-
-
-/* =========================
- BACK TO TOP
-========================= */
-
-
-const topBtn =
-document.getElementById(
-"topBtn"
-);
-
-
-
-window.addEventListener(
-"scroll",
-()=>{
-
-if(window.scrollY>500)
-
-topBtn.style.display="block";
-
-else
-
-topBtn.style.display="none";
-
-
-});
-
-
-
-topBtn.onclick=()=>{
-
-window.scrollTo(
-{
-top:0,
-behavior:"smooth"
 }
-);
 
-};
 
+
+
+
+function choose(name){
+
+document.getElementById("searchBox").value=name;
+
+document.getElementById("suggestions").innerHTML="";
+
+}
+
+
+
+
+
+function openSearch(){
+
+let query=document
+.getElementById("searchBox")
+.value
+.toLowerCase();
+
+
+document.getElementById("home").style.display="none";
+
+document.getElementById("searchPage").style.display="block";
+
+
+let results=document.getElementById("results");
+
+results.innerHTML="";
+
+
+
+database.filter(item=>
+
+item.title.toLowerCase().includes(query)
+
+||
+item.description.toLowerCase().includes(query)
+
+)
+.forEach(item=>{
+
+results.innerHTML+=card(item);
+
+});
+
+
+}
+
+
+
+
+function goBack(){
+
+document.getElementById("home").style.display="block";
+
+document.getElementById("searchPage").style.display="none";
+
+}
 
 
 
 </script>
-<script>
-
-/* =========================
- HERO SLIDESHOW
-========================= */
-
-const heroImages = [
-"https://picsum.photos/1920/900?random=600",
-"https://picsum.photos/1920/900?random=601",
-"https://picsum.photos/1920/900?random=602",
-"https://picsum.photos/1920/900?random=603"
-];
-
-
-let heroIndex = 0;
-
-const heroBackground =
-document.querySelector(".hero-background");
-
-
-setInterval(()=>{
-
-heroIndex++;
-
-if(heroIndex >= heroImages.length)
-heroIndex = 0;
-
-
-heroBackground.style.opacity="0";
-
-
-setTimeout(()=>{
-
-heroBackground.style.backgroundImage =
-`url(${heroImages[heroIndex]})`;
-
-heroBackground.style.opacity="1";
-
-
-},500);
-
-
-
-},7000);
-
-
-
-
-
-
-
-/* =========================
- NOTIFICATIONS
-========================= */
-
-
-const notifyButton =
-document.querySelectorAll(".icon-btn")[1];
-
-
-const notificationPanel =
-document.createElement("div");
-
-
-notificationPanel.className="notification-panel";
-
-
-notificationPanel.innerHTML=`
-
-<h3>
-Notifications
-</h3>
-
-<p>
-New releases added today
-</p>
-
-<p>
-Your watchlist has updates
-</p>
-
-<p>
-Weekend Binge collection available
-</p>
-
-`;
-
-
-
-document.body.appendChild(notificationPanel);
-
-
-
-notifyButton.onclick=()=>{
-
-notificationPanel.classList.toggle("show");
-
-};
-
-
-
-
-
-
-
-/* =========================
- PROFILE DROPDOWN
-========================= */
-
-
-const avatar =
-document.querySelector(".avatar");
-
-
-const profile =
-document.createElement("div");
-
-
-profile.className="profile-menu";
-
-
-profile.innerHTML=`
-
-<h3>
-Account
-</h3>
-
-<p>
-Profile Settings
-</p>
-
-<p>
-Switch Profile
-</p>
-
-<p>
-Sign Out
-</p>
-
-`;
-
-
-document.body.appendChild(profile);
-
-
-
-avatar.onclick=()=>{
-
-profile.classList.toggle("show");
-
-};
-
-
-
-
-
-
-
-
-/* =========================
- RIPPLE BUTTON EFFECT
-========================= */
-
-
-document
-.querySelectorAll("button")
-.forEach(btn=>{
-
-
-btn.addEventListener(
-"click",
-function(e){
-
-
-let ripple =
-document.createElement("span");
-
-
-ripple.className="ripple";
-
-
-const rect =
-this.getBoundingClientRect();
-
-
-ripple.style.left =
-(e.clientX-rect.left)+"px";
-
-
-ripple.style.top =
-(e.clientY-rect.top)+"px";
-
-
-this.appendChild(ripple);
-
-
-
-setTimeout(()=>{
-
-ripple.remove();
-
-},600);
-
-
-
-});
-
-
-});
-
-
-
-
-
-
-/* =========================
- MOBILE MENU
-========================= */
-
-
-const mobileButton =
-document.createElement("button");
-
-
-mobileButton.className=
-"mobile-button";
-
-
-mobileButton.innerHTML="☰";
-
-
-document
-.querySelector(".navbar")
-.appendChild(mobileButton);
-
-
-
-mobileButton.onclick=()=>{
-
-document
-.querySelector(".nav-left")
-.classList.toggle("mobile-open");
-
-};
-
-
-
-
-
-
-/* =========================
- KEYBOARD ACCESSIBILITY
-========================= */
-
-
-document.addEventListener(
-"keydown",
-e=>{
-
-
-if(e.key==="Escape"){
-
-document
-.getElementById("searchModal")
-.style.display="none";
-
-
-notificationPanel
-.classList.remove("show");
-
-
-profile
-.classList.remove("show");
-
-
-}
-
-
-
-if(e.key==="Home"){
-
-window.scrollTo(
-{
-top:0,
-behavior:"smooth"
-}
-);
-
-
-}
-
-
-
-});
-
-
-
-</script>
-
-
-
-
-
-<style>
-
-/* =========================
- EXTRA POLISH
-========================= */
-
-
-.hero-background{
-
-transition:opacity .5s ease;
-
-}
-
-
-
-.notification-panel,
-.profile-menu{
-
-position:fixed;
-
-right:30px;
-
-top:85px;
-
-width:280px;
-
-padding:25px;
-
-background:
-rgba(15,23,42,.95);
-
-backdrop-filter:blur(20px);
-
-border-radius:20px;
-
-box-shadow:
-0 0 35px rgba(30,123,255,.3);
-
-z-index:8000;
-
-opacity:0;
-
-transform:translateY(-20px);
-
-pointer-events:none;
-
-transition:.3s;
-
-}
-
-
-
-.notification-panel.show,
-.profile-menu.show{
-
-opacity:1;
-
-transform:translateY(0);
-
-pointer-events:auto;
-
-}
-
-
-
-.notification-panel p,
-.profile-menu p{
-
-padding:12px 0;
-
-color:#cbd5e1;
-
-border-bottom:
-1px solid #1e293b;
-
-}
-
-
-
-
-button{
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-
-
-.ripple{
-
-position:absolute;
-
-width:100px;
-
-height:100px;
-
-background:
-rgba(255,255,255,.35);
-
-border-radius:50%;
-
-transform:translate(-50%,-50%);
-
-animation:ripple .6s linear;
-
-pointer-events:none;
-
-}
-
-
-
-@keyframes ripple{
-
-from{
-
-transform:
-translate(-50%,-50%)
-scale(0);
-
-opacity:1;
-
-}
-
-to{
-
-transform:
-translate(-50%,-50%)
-scale(4);
-
-opacity:0;
-
-}
-
-}
-
-
-
-
-.mobile-button{
-
-display:none;
-
-background:#1e293b;
-
-color:white;
-
-border:none;
-
-width:45px;
-
-height:45px;
-
-border-radius:50%;
-
-font-size:20px;
-
-}
-
-
-
-
-@media(max-width:900px){
-
-
-.navbar{
-
-padding:0 20px;
-
-}
-
-
-
-.mobile-button{
-
-display:block;
-
-}
-
-
-
-.nav-left{
-
-position:absolute;
-
-top:80px;
-
-left:20px;
-
-right:20px;
-
-background:#0f172a;
-
-padding:25px;
-
-border-radius:20px;
-
-flex-direction:column;
-
-align-items:flex-start;
-
-display:none;
-
-}
-
-
-
-.nav-left.mobile-open{
-
-display:flex;
-
-}
-
-
-
-.hero{
-
-padding:0 25px;
-
-}
-
-
-
-.hero h1{
-
-font-size:55px;
-
-}
-
-
-
-.section{
-
-padding:35px 20px;
-
-}
-
-
-
-.movie-grid{
-
-grid-template-columns:
-repeat(2,1fr);
-
-}
-
-
-
-}
-
-
-
-@media(max-width:550px){
-
-
-.hero h1{
-
-font-size:40px;
-
-}
-
-
-
-.hero p{
-
-font-size:15px;
-
-}
-
-
-
-.hero-buttons{
-
-flex-direction:column;
-
-width:100%;
-
-}
-
-
-
-.btn{
-
-width:100%;
-
-}
-
-
-
-.movie-grid{
-
-grid-template-columns:1fr;
-
-}
-
-
-
-.nav-right .nav-link{
-
-display:none;
-
-}
-
-
-
-}
-
-
-
-</style>
-
-
-
 
 
 </body>
