@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Chopperflix Watch</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+
+    background:#080808;
+
+    color:white;
+
+    font-family:Arial,sans-serif;
+
+}
+
+
+/* TOP BAR */
+
+.topbar{
+
+    height:80px;
+
+    width:100%;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    z-index:10;
+
+    background:rgba(10,10,20,.85);
+
+    backdrop-filter:blur(15px);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:20px;
+
+}
+
+
+.logo{
+
+    font-family:Arial,sans-serif;
+
+    font-weight:900;
+
+    font-size:38px;
+
+    background:linear-gradient(
+        90deg,
+        #a855f7,
+        #2563eb
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+
+
+.back{
+
+    background:#7c3aed;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:25px;
+
+    cursor:pointer;
+
+}
+
+
+
+/* VIDEO */
+
+.player{
+
+    padding-top:110px;
+
+}
+
+
+.playerBox{
+
+    position:relative;
+
+    width:90%;
+
+    margin:auto;
+
+}
+
+
+iframe{
+
+    width:100%;
+
+    height:600px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:black;
+
+}
+
+
+
+.fullscreen{
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:20px;
+
+    background:#7c3aed;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:25px;
+
+    cursor:pointer;
+
+}
+
+
+
+/* INFO */
+
+.info{
+
+    display:flex;
+
+    gap:30px;
+
+    padding:40px;
+
+}
+
+
+
+.poster{
+
+    width:220px;
+
+    height:330px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+}
+
+
+
+.details{
+
+    max-width:800px;
+
+}
+
+
+
+.details h1{
+
+    font-size:50px;
+
+    margin:0 0 15px;
+
+}
+
+
+
+.details p{
+
+    color:#ccc;
+
+    font-size:18px;
+
+}
+
+
+
+.tag{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    background:#7c3aed;
+
+    padding:8px 18px;
+
+    border-radius:20px;
+
+}
+
+
+
+
+/* RATING */
+
+
+.rating{
+
+    margin-top:40px;
+
+}
+
+
+.stars{
+
+    font-size:45px;
+
+    cursor:pointer;
+
+}
+
+
+
+.stars span{
+
+    color:#555;
+
+    transition:.2s;
+
+}
+
+
+
+.stars span:hover{
+
+    color:#ffd700;
+
+}
+
+
+
+#ratingText{
+
+    color:#ccc;
+
+    font-size:20px;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+
+<div class="topbar">
+
+
+<div class="logo">
+
+CHOPPERFLIX
+
+</div>
+
+
+<button class="back" onclick="goBack()">
+
+← Back
+
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="player">
+
+
+<div class="playerBox">
+
+
+<iframe 
+id="videoPlayer"
+allowfullscreen>
+</iframe>
+
+
+<button class="fullscreen" onclick="fullscreenPlayer()">
+
+⛶ Fullscreen
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="info">
+
+
+<img 
+class="poster"
+id="poster">
+
+
+
+<div class="details">
+
+
+<h1 id="title">
+
+Loading...
+
+</h1>
+
+
+<p id="description"></p>
+
+
+<div class="tag" id="type"></div>
+
+
+
+<div class="rating">
+
+
+<h2>
+
+Rate this movie
+
+</h2>
+
+
+<div class="stars">
+
+<span onclick="rate(1)">★</span>
+
+<span onclick="rate(2)">★</span>
+
+<span onclick="rate(3)">★</span>
+
+<span onclick="rate(4)">★</span>
+
+<span onclick="rate(5)">★</span>
+
+</div>
+
+
+<p id="ratingText"></p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+
+let saved = localStorage.getItem("selectedContent");
+
+
+
+if(saved){
+
+
+let movie = JSON.parse(saved);
+
+
+
+document.getElementById("videoPlayer").src =
+movie.content;
+
+
+
+document.getElementById("poster").src =
+movie.image;
+
+
+
+document.getElementById("title").innerText =
+movie.title;
+
+
+
+document.getElementById("description").innerText =
+movie.description;
+
+
+
+document.getElementById("type").innerText =
+movie.type.toUpperCase();
+
+
+
+}
+
+
+
+
+
+function fullscreenPlayer(){
+
+
+let frame=document.getElementById("videoPlayer");
+
+
+if(frame.requestFullscreen){
+
+frame.requestFullscreen();
+
+}
+
+
+}
+
+
+
+
+function rate(number){
+
+
+let messages={
+
+1:"This sucked ahh 😭",
+
+2:"This sucked 💔",
+
+3:"Mehh",
+
+4:"idk ngl 👀",
+
+5:"Peak 👀👀👀"
+
+};
+
+
+
+document.getElementById("ratingText").innerText =
+messages[number];
+
+
+}
+
+
+
+
+
+function goBack(){
+
+window.location.href="chopperflix.html";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
